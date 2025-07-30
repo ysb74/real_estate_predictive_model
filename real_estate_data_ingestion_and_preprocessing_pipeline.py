@@ -873,7 +873,7 @@ def train_evaluate_neural_network_classification(X, y, model_name="Neural Networ
                   metrics=['accuracy'])
 
     # Train the model
-    history = model.fit(X_train, y_train, epochs=100, batch_size=32, validation_split=0.2, verbose=0) # verbose=0 to reduce output
+    history = model.fit(X_train, y_train, epochs=100, batch_size=256, validation_split=0.2, verbose=0) # verbose=0 to reduce output
 
     # Evaluate the model on the test set
     loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
