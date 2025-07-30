@@ -855,11 +855,15 @@ def train_evaluate_neural_network_classification(X, y, model_name="Neural Networ
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
     # Define the Neural Network model
-    model = keras.Sequential([
+   model = keras.Sequential([
         layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
         layers.Dropout(0.3), # Dropout for regularization
         layers.Dense(32, activation='relu'),
         layers.Dropout(0.3),
+        layers.Dense(16, activation='relu'), # Added hidden layer
+        layers.Dropout(0.3), # Added dropout for the new layer
+        layers.Dense(8, activation='relu'),  # Further increased layers
+        layers.Dropout(0.3), # Dropout for the new layer
         layers.Dense(1, activation='sigmoid') # Sigmoid for binary classification
     ])
 
@@ -869,7 +873,7 @@ def train_evaluate_neural_network_classification(X, y, model_name="Neural Networ
                   metrics=['accuracy'])
 
     # Train the model
-    history = model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.2, verbose=0) # verbose=0 to reduce output
+    history = model.fit(X_train, y_train, epochs=100, batch_size=32, validation_split=0.2, verbose=0) # verbose=0 to reduce output
 
     # Evaluate the model on the test set
     loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
